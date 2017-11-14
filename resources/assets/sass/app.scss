@@ -2,3 +2,21 @@
 #admin-page{
   padding-top: 0px;
 }
+
+.table thead tr th , .table{
+   text-align: center;
+
+ }
+
+.bg-active{
+  background-color: #4cae4c;
+  padding:5px ;
+  border-radius: 5px;
+  color:ghostwhite;
+}
+.bg-deactive{
+  background-color: orangered;
+  padding:5px ;
+  color:ghostwhite;
+  border-radius: 5px;
+}
