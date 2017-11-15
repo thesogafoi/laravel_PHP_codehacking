@@ -14,7 +14,8 @@
     <div class="col-sm-9">
 
 
-    {!! Form::model($user , ['action'=>['AdminUsersController@update' , $user->id],'method'=>'PATCH' ]) !!}
+    {!! Form::model($user , ['action'=>['AdminUsersController@update' , $user->id],'method'=>'PATCH' , 'files'=>true] )
+     !!}
 
     <div class="form-group">
         {!! Form::label('name', 'Name : ', ['class' => 'awesome']) !!}
@@ -43,7 +44,7 @@
         <a class="text-center" href="{{route('admin.users.index')}}"><p class="alert alert-info">Change Password</p></a>
     </div>
         <div class="form-group">
-        {!! Form::submit('Create' , ['class' => 'btn btn-primary']) !!}
+        {!! Form::submit('Update User' , ['class' => 'btn btn-primary']) !!}
     </div>
     {!! Form::close() !!}
 

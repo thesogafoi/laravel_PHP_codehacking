@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserEditRequest;
 use App\Http\Requests\UserRequest;
 use App\Photo;
 use Illuminate\Http\Request;
@@ -91,7 +92,19 @@ class AdminUsersController extends Controller
      */
     public function update(UserEditRequest $request, $id)
     {
-        //
+        $input = $request->all();
+        $user  = User::findOrFail($id);
+        if ($file = $request->file('file')){
+			$name = $file->getClientOriginalName();
+			$photo = Photo::create(['file'=>$name]);
+			$input['photo_id'] = $photo->id;
+			$file->move('images/'.$request->email, $name);
+		}
+		if ($request->email != $user->email){
+			rename('images/'.$user->email , 'images/'.$request->email);
+		}
+		$user->update($input);
+		return redirect('admin/users');
     }
 
     /**

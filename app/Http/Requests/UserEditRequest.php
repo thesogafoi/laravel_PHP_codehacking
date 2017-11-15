@@ -13,7 +13,7 @@ class UserEditRequest extends Request
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,6 +25,10 @@ class UserEditRequest extends Request
     {
         return [
             //
+			'name' => 'required',
+			'email' => 'required',
+			'role_id' => 'required',
+			'is_active' => 'required'
         ];
     }
 }
