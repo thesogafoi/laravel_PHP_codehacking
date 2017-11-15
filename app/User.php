@@ -11,6 +11,7 @@ class User extends Authenticatable
      *
      * @var array
      */
+    public $path = '/images/';
     protected $fillable = [
         'name', 'email', 'password','role_id','photo_id','is_active'
     ];
@@ -26,5 +27,11 @@ class User extends Authenticatable
     
     public function role(){
     	return $this->belongsTo('App\Role' , 'role_id' , 'id');
+	}
+	public function photo(){
+    	return $this->belongsTo('App\Photo');
+	}
+	public function imagePath(){
+		return $this->path. $this->email .'/'.$this->photo->file;
 	}
 }
