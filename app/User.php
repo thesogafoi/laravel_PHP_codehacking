@@ -34,4 +34,14 @@ class User extends Authenticatable
 	public function imagePath(){
 		return $this->path. $this->email .'/'.$this->photo->file;
 	}
+	public function imagesDir(){
+		return $this->path. $this->email;
+	}
+	public function isAdmin(){
+		if ($this->role->name == 'admin'){
+			return true ;
+		}else{
+			return false;
+		}
+	}
 }

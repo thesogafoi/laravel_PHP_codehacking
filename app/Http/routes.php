@@ -22,6 +22,6 @@ Route::get('/home', 'HomeController@index');
 		return view('admin.index');
 	});
 
-Route::group(['middleware'=>'admin'] , function(){
+Route::group(['middleware'=>'Admin'] , function(){
 	Route::resource('/admin/users' , 'AdminUsersController');
 });

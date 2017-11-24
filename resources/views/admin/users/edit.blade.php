@@ -14,6 +14,8 @@
     <div class="col-sm-9">
 
 
+
+
     {!! Form::model($user , ['action'=>['AdminUsersController@update' , $user->id],'method'=>'PATCH' , 'files'=>true] )
      !!}
 
@@ -41,13 +43,20 @@
         {!! Form::file('file' , ['class'=>'']) !!}
     </div>
     <div class="form-group">
-        <a class="text-center" href="{{route('admin.users.index')}}"><p class="alert alert-info">Change Password</p></a>
+        <a class="text-center" href="{{route('admin.users.index')}}"><p class="alert alert-warning">Change
+                Password</p></a>
     </div>
+        <div class="col-md-6">
         <div class="form-group">
-        {!! Form::submit('Update User' , ['class' => 'btn btn-primary']) !!}
+        {!! Form::submit('Update User' , ['class' => 'btn btn-primary form-control']) !!}
     </div>
     {!! Form::close() !!}
-
+        </div>
+        <div class="col-md-6">
+         {!! Form::open(['action'=>['AdminUsersController@destroy' , $user->id], 'method'=>'DELETE' , 'files'=>true])!!}
+                {!! Form::submit('Delete User' , ['class' => 'btn btn-danger form-control']) !!}
+          {!! Form::close() !!}
+        </div>
     @include('include.form_error')
 
     </div>

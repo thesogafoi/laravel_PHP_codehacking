@@ -1,6 +1,11 @@
 @extends('layouts.admin')
-
-
+@section('message')
+    @if(\Illuminate\Support\Facades\Session::has('user_deleted'))
+    <p style="font-size : 1.8rem;font-weight: bold;padding:20px; margin-top:5px !important; background: #cc2828;
+    color:white;"
+       class="bg-danger text-center">{{session('user_deleted')}}</p>
+    @endif()
+@endsection
 @section('content')
     <h1>Create Users </h1>
     <table class="table">
