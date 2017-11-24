@@ -1,8 +1,8 @@
 @extends('layouts.admin')
 @section('message')
     @if(\Illuminate\Support\Facades\Session::has('user_deleted'))
-    <p style="font-size : 1.8rem;font-weight: bold;padding:20px; margin-top:5px !important; background: #cc2828;
-    color:white;"
+    <p style="font-size : 1.8rem;font-weight: bold;padding:20px; margin-top:5px !important; background: rgba(204, 40, 40, 0.52);
+    color:#ad2c2c;    border-radius: 19px; border: 2px solid black;"
        class="bg-danger text-center">{{session('user_deleted')}}</p>
     @endif()
 @endsection
