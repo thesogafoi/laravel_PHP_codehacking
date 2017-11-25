@@ -11,7 +11,9 @@ class Photo extends Model
 	public $fillable = ['file'];
 	
 	public function users(){
-		return $this->hasMany('App\users');
+		return $this->hasMany('App\User');
 	}
-	
+	public function posts(){
+		return $this->hasMany('App\Post');
+	}
 }
