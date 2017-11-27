@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAdminCommentsControllersTable extends Migration
+class CreateCommentRepliesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,15 +12,15 @@ class CreateAdminCommentsControllersTable extends Migration
      */
     public function up()
     {
-        Schema::create('comments', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('post_id')->index();
+        Schema::create('comment_replies', function (Blueprint $table) {
+			$table->increments('id');
+			$table->integer('comment_id')->index()->unsigned();
 			$table->integer('is_active')->default(0);
 			$table->string('author');
 			$table->string('email');
 			$table->text('body');
-            $table->timestamps();
-            $table->foreign('post_id')->refrences('id')->on('posts')->onDelete('cascade');
+			$table->timestamps();
+			$table->foreign('comment_id')->references('id')->on('comments')->onDelete('cascade');
         });
     }
 
@@ -31,6 +31,6 @@ class CreateAdminCommentsControllersTable extends Migration
      */
     public function down()
     {
-        Schema::drop('admin_comments_controllers');
+        Schema::drop('comment_replies');
     }
 }

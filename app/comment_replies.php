@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class AdminCommentsController extends Model
+class comment_replies extends Model
 {
     //
 }
