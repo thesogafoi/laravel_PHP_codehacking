@@ -21,4 +21,11 @@ class Post extends Model
 	public function photo(){
 		return $this->belongsTo('App\Photo');
 	}
+	public function imagePostPath(){
+		return $this->user->path.$this->user->email.'/'.$this->photo->file;
+	}
+	public function category(){
+		return $this->belongsTo('App\Cat' , 'category_id' , 'id');
+	}
+	
 }

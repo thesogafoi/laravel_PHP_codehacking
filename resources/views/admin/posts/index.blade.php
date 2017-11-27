@@ -12,10 +12,10 @@
         <thead>
         <tr>
             <th>id</th>
+            <th>Photo</th>
             <th>Title</th>
             <th>Body</th>
             <th>Owner</th>
-            <th>Photo</th>
             <th>Category</th>
             <th>created_at</th>
             <th>updated_at</th>
@@ -25,11 +25,11 @@
         @foreach($posts as $post)
             <tr>
                <td>{{$post->id}}</td>
-                <td>{{$post->title}}</td>
+                <td><a href="{{route('admin.post.edit' , $post->id)}}"><img height="50" src="{{$post->photo_id?$post->imagePostPath(): 'https://cmkt-image-prd.global.ssl.fastly.net/0.1.0/ps/2383454/580/386/m1/fpnw/wm0/creative-24-.png?1489056658&s=c0c68cb152372f5b66acee0ce60178ee'}}" alt=""></a></td>
+                <td><a href="{{route('admin.post.edit' , $post->id)}}">{{$post->title}}</a></td>
                 <td>{{$post->body}}</td>
                 <td>{{$post->user->name}}</td>
-                <td>{{$post->photo->file}}</td>
-                <td>{{$post->category_id}}</td>
+                <td>{{$post->category ? $post->category->name : 'uncategorized'}}</td>
                 <td>{{$post->created_at->diffForHumans()}}</td>
                 <td>{{$post->updated_at->diffForHumans()}}</td>
             </tr>
