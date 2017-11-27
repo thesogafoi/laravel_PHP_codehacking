@@ -28,4 +28,8 @@ class Post extends Model
 		return $this->belongsTo('App\Cat' , 'category_id' , 'id');
 	}
 	
+	public function comments(){
+		return $this->hasMany('App\Comment');
+	}
+	
 }
