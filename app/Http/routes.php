@@ -35,3 +35,11 @@ Route::group(['middleware'=>'Admin'] , function(){
 	Route::resource('/admin/comments' ,'AdminCommentsController');
 	Route::resource('/admin/comments/replies' ,'CommentRepliesController');
 });
+	
+	
+	Route::group(['middleware'=>'auth'] , function(){
+		
+		Route::post('/comment/replay' ,'CommentRepliesController@createReplay');
+	});
+
+

@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class CommentReplay extends Model
 {
     //
+	protected $table  = 'comment_replies';
 	protected $fillable = [
-		'post_id' ,
 		'is_active' ,
 		'author' ,
 		'email' ,

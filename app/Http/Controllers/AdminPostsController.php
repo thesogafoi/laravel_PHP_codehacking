@@ -64,7 +64,9 @@ class AdminPostsController extends Controller
      */
     public function show($id)
     {
-        //
+    	$post = Post::findOrFail($id);
+    	$comments = $post->comments;
+    	return view('admin.comments.show' , compact('post' , 'comments' ));
     }
 
     /**
@@ -124,6 +126,8 @@ class AdminPostsController extends Controller
     }
     public function post($id){
     		$post = Post::findOrFail($id);
-    		return view('post' , compact("post"));
+    		$user = $post->user;
+    		$comments  = $post->comments;
+    		return view('post' , compact("post" , 'user' , 'comments'));
 	}
 }

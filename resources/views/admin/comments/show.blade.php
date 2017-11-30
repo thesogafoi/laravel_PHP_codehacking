@@ -2,10 +2,11 @@
 
 @section('content')
     @if(count($comments) > 0)
-        <h1>Comments </h1>
+        <h1 class="text-center">Comments For {{$post->title}}</h1>
+        <br>
         @if(\Illuminate\Support\Facades\Session::has('comment_message'))
-                <h4 style="color: #080808" class="text-center">{{session('comment_message')}}</h4><br>
-                <hr>
+            <h4 style="color: #080808" class="text-center">{{session('comment_message')}}</h4><br>
+            <hr>
         @endif
         <table class="table">
             <thead>
@@ -30,16 +31,16 @@
                     <td><a href="{{route('home.post' , $comment->post->id)}}">{{$comment->post->title}}</a></td>
                     <td>{{$comment->created_at->diffForHumans()}}</td>
                     <td>
-                    @if($comment->is_active == 1)
-                             {!! Form::open(['action'=>['AdminCommentsController@update' , $comment->id]  ,
-                             'method'=>'PATCH' ]) !!}
-                                {!! Form::submit('Un-Approve' , ['class' => 'btn btn-info']) !!}
-                                <input type="hidden" value='0' name="is_active">
-                              {!! Form::close() !!}
+                        @if($comment->is_active == 1)
+                            {!! Form::open(['action'=>['AdminCommentsController@update' , $comment->id]  ,
+                            'method'=>'PATCH' ]) !!}
+                            {!! Form::submit('Un-Approve' , ['class' => 'btn btn-info']) !!}
+                            <input type="hidden" value='0' name="is_active">
+                            {!! Form::close() !!}
                         @else
                             {!! Form::open(['action'=>['AdminCommentsController@update' , $comment->id], 'method'=>'PATCH',
                             $comment->id]) !!}
-                                <input type="hidden" value='1' name="is_active">
+                            <input type="hidden" value='1' name="is_active">
                             {!! Form::submit('Approve' , ['class' => 'btn btn-primary']) !!}
                             {!! Form::close() !!}
                         @endif
@@ -56,8 +57,8 @@
                     </td>
                 </tr>
             @endforeach
-        @else
-        <h1 class="text-center" style="color: darkred">No Comment Here</h1>
+            @else
+                <h1 class="text-center" style="color: darkred">No Comment Here</h1>
     @endif
 @endsection
 

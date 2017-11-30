@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Comment;
+use App\Http\Requests\CommentRequest;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class AdminCommentsController extends Controller
 {
@@ -15,8 +19,8 @@ class AdminCommentsController extends Controller
      */
     public function index()
     {
-    	
-        return view('admin.comments.index');
+    	$comments =  Comment::all();
+        return view('admin.comments.index' , compact('comments'));
     }
 
     /**
@@ -35,9 +39,18 @@ class AdminCommentsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CommentRequest $request)
     {
-        return $request->all();
+        $user = Auth::user();
+        $data  = [
+        	'post_id' => $request->post_id,
+			'author'  => $user->name,
+			'email'   => $user->email ,
+			'body'    => $request->body
+		];
+        Comment::create($data);
+        Session::flash('comment_message' , 'Your Comment Has been Added');
+        return redirect('post/'.$request->post_id.'/'.'#hooked');
     }
 
     /**
@@ -71,7 +84,10 @@ class AdminCommentsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+    	$comment  = Comment::findOrFail($id);
+    	$comment->update($request->all());
+		Session::flash('comment_message', 'Yeayy Comment Updated');
+        return redirect()->back();
     }
 
     /**
@@ -82,6 +98,8 @@ class AdminCommentsController extends Controller
      */
     public function destroy($id)
     {
-        //
+    	Comment::findOrFail($id)->delete();
+    	Session::flash('comment_message', 'Yeayy Comment Deleted');
+    	return redirect()->back();
     }
 }

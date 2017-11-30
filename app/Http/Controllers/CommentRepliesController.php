@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\CommentReplay;
+use App\Http\Requests\CommentRequest;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class CommentRepliesController extends Controller
 {
@@ -16,6 +20,7 @@ class CommentRepliesController extends Controller
     public function index()
     {
         //
+		return view('admin.media.uploadpage');
     }
 
     /**
@@ -38,7 +43,22 @@ class CommentRepliesController extends Controller
     {
         //
     }
-
+	public function createReplay (CommentRequest $request)
+	{
+		//
+		$user = Auth::user();
+		$data  = [
+			'comment_id' => $request->comment_id,
+			'author'  => $user->name,
+			'email'   => $user->email ,
+			'body'    => $request->body
+		];
+		CommentReplay::create($data);
+		Session::flash('Replay_message' , 'Your Comment Has been Added');
+		return redirect()->back()->withInput();
+		
+	}
+	
     /**
      * Display the specified resource.
      *
