@@ -13,12 +13,11 @@ class Comment extends Model
 		'is_active' ,
 		'author' ,
 		'email' ,
-		'body' ,
-		'post_id'
+		'body'
 		
 	];
 	  public function replies(){
-	  		return $this->hasMany('App\commentReplay');
+	  		return $this->hasMany('App\CommentReplay');
 	  }
 	
 	

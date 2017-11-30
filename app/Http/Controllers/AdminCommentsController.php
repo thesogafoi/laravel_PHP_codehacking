@@ -15,7 +15,8 @@ class AdminCommentsController extends Controller
      */
     public function index()
     {
-        //
+    	
+        return view('admin.comments.index');
     }
 
     /**
@@ -36,7 +37,7 @@ class AdminCommentsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return $request->all();
     }
 
     /**
