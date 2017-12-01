@@ -19,7 +19,7 @@ class AdminCommentsController extends Controller
      */
     public function index()
     {
-    	$comments =  Comment::all();
+    	$comments =  Comment::orderBy('id' , 'desc')->get();
         return view('admin.comments.index' , compact('comments'));
     }
 

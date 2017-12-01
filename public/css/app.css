@@ -16,4 +16,9 @@
   color: ghostwhite;
   border-radius: 5px; }
 
+.nested-comment {
+  margin-top: 50px !important;
+  border-bottom: 1px solid #d2cfcf;
+  padding-bottom: 10px; }
+
 /*# sourceMappingURL=app.css.map */

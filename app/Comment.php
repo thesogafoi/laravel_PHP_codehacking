@@ -23,6 +23,13 @@ class Comment extends Model
 	  	return $this->belongsTo('App\Post');
 	  }
 	
+	/**
+	 * @return mixed
+	 */
+	public function user(){
+	  		return $this->belongsTo('App\User' , 'email' , 'email');
+	  }
+	
 	
 	
 	

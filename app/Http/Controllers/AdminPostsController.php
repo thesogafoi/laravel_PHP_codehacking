@@ -126,8 +126,7 @@ class AdminPostsController extends Controller
     }
     public function post($id){
     		$post = Post::findOrFail($id);
-    		$user = $post->user;
-    		$comments  = $post->comments;
-    		return view('post' , compact("post" , 'user' , 'comments'));
+    		$comments  = $post->comments()->where('is_active','1')->orderBy('id',' DESC')->get();
+    		return view('post' , compact("post"  , 'comments'));
 	}
 }
