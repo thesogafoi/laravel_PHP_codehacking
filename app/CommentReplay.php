@@ -16,7 +16,7 @@ class CommentReplay extends Model
 		'comment_id'
 	];
 	
-	public function comments(){
+	public function comment(){
 		return $this->belongsTo('App\Comment');
 		
 	}

@@ -1,11 +1,24 @@
 <?php
 
 namespace App;
-
+use Cviebrock\EloquentSluggable\Sluggable;
+use Cviebrock\EloquentSluggable\SluggableScopeHelpers;
 use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
+	use Sluggable;
+	use SluggableScopeHelpers;
+	public function sluggable()
+	{
+		return [
+			'slug' => [
+				'source' => 'title',
+				'separator'       => '-',
+				'onUpdate' => true,
+			]
+		];
+	}
     protected $fillable = [
     	'photo_id',
 		'title',

@@ -32,8 +32,10 @@
                 <td>{{str_limit($post->body , 30)}}</td>
                 <td>{{$post->user->name}}</td>
                 <td>{{$post->category ? $post->category->name : 'uncategorized'}}</td>
-                <td><a href="{{route('admin.post.show' , $post->id)}} ">View All Comments </a></td>
-                <td><a href="{{route('home.post' , $post->id)}} ">View Post </a></td>
+                <td><a href="{{route('admin.post.show' , $post->id)}} "><i style="background:
+                    #ffae62;padding: 10px; color: white;text-decoration: none;border-radius: 20px;">{{count
+                    ($post->comments)}}</i> </a></td>
+                <td><a href="{{route('home.post' , $post->slug)}} ">View Post </a></td>
                 <td>{{$post->created_at->diffForHumans()}}</td>
                 <td>{{$post->updated_at->diffForHumans()}}</td>
             </tr>
@@ -41,5 +43,10 @@
         </tbody>
 
     </table>
-
+    <div class="row">
+        <div class="col-md-4 col-md-offset-5">
+            {{$posts->render()}}
+        </div>
+    </div>
 @endsection
+

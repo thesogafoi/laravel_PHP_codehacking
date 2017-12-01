@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Comment;
 use App\CommentReplay;
 use App\Http\Requests\CommentRequest;
 use Illuminate\Http\Request;
@@ -53,9 +54,10 @@ class CommentRepliesController extends Controller
 			'email'   => $user->email ,
 			'body'    => $request->body
 		];
-		CommentReplay::create($data);
-		Session::flash('Replay_message' , 'Your Comment Has been Added');
-		return redirect()->back()->withInput();
+		
+		$replay = CommentReplay::create($data);
+		Session::flash('replay_message' , 'Your Replay Has been Added');
+		return redirect('post/'.$replay->comment->post->slug.'/'.'#hooked');
 		
 	}
 	
@@ -67,7 +69,10 @@ class CommentRepliesController extends Controller
      */
     public function show($id)
     {
-        //
+    	$comment = Comment::findOrFail($id);
+        $replies = $comment->replies;
+        return view('admin.comments.replies.show' , compact('replies' , 'comment'));
+        
     }
 
     /**
@@ -90,7 +95,9 @@ class CommentRepliesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        CommentReplay::findOrFail($id)->update($request->all());
+		Session::flash('replay_message' , 'Replay Updated');
+        return redirect()->back();
     }
 
     /**
@@ -101,6 +108,8 @@ class CommentRepliesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        CommentReplay::findOrFail($id)->delete();
+        Session::flash('replay_message' , 'Replay Deleted');
+        return redirect()->back();
     }
 }

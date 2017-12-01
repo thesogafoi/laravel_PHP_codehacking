@@ -48,9 +48,9 @@ class AdminCommentsController extends Controller
 			'email'   => $user->email ,
 			'body'    => $request->body
 		];
-        Comment::create($data);
+        $comment = Comment::create($data);
         Session::flash('comment_message' , 'Your Comment Has been Added');
-        return redirect('post/'.$request->post_id.'/'.'#hooked');
+        return redirect('post/'.$comment->post->title.'/'.'#hooked');
     }
 
     /**

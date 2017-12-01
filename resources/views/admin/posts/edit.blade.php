@@ -15,10 +15,6 @@
         @endif
     </div>
     <div class="col-sm-12">
-
-
-
-
         {!! Form::model($post , ['action'=>['AdminPostsController@update' , $post->id],'method'=>'PATCH' , 'files'=>true] ) !!}
 
         <div class="form-group">

@@ -16,6 +16,7 @@
                 <th>Email</th>
                 <th>Body</th>
                 <th>Comment For</th>
+                <th>View Replies</th>
                 <th>Submitted At</th>
                 <th>Change Status</th>
                 <th>Delete</th>
@@ -24,11 +25,15 @@
             <tbody>
             @foreach($comments as $comment)
                 <tr>
+
                     <td>{{$comment->id}}</td>
                     <td>{{$comment->author}}</td>
                     <td>{{$comment->email}}</td>
                     <td>{{$comment->body}}</td>
-                    <td><a href="{{route('home.post' , $comment->post->id)}}">{{$comment->post->title}}</a></td>
+                    <td><a href="{{route('home.post' , $comment->post->slug)}}">{{$comment->post->title}}</a></td>
+                    <td><a href="{{route('admin.comments.replies.show' , $comment->id)}}"><i style="background:
+                    #ffae62;padding: 10px; color: white;text-decoration: none;border-radius: 20px;">{{count
+                    ($comment->replies)}}</i></a></td>
                     <td>{{$comment->created_at->diffForHumans()}}</td>
                     <td>
                         @if($comment->is_active == 1)

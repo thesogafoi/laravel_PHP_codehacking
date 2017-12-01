@@ -1,5 +1,12 @@
 @extends('layouts.blog-post')
+@section('style')
+    <style>
+            .toggle-replay{
+                margin-bottom: 25px;
+            }
+    </style>
 
+    @endsection
 @section('content')
 
     <!-- Blog Post -->
@@ -51,8 +58,9 @@
 
           {!! Form::close() !!}
         <br><br>
-        @if(\Illuminate\Support\Facades\Session::has('comment_message') || \Illuminate\Support\Facades\Session::has('Replay_message'))
+        @if(\Illuminate\Support\Facades\Session::has('comment_message') || \Illuminate\Support\Facades\Session::has('replay_message'))
             <p class="bg-info text-center">{{session('comment_message')}}</p>
+                <p class="bg-info text-center">{{session('replay_message')}}</p>
             @endif
         @else
            <p class="text-center>"> <a href="{{url('login')}}" >U cannot leave Comment Go to Login</a></p>
@@ -78,8 +86,18 @@
                 <small>{{$comment->created_at->diffForHumans()}}</small>
             </h4>
            {{$comment->body}}
+            <button class="btn btn-primary pull-right toggle-replay">Replay Comment</button>
+            <div class="replay-section" style="display: none;">
+            {!! Form::open(['action'=>'CommentRepliesController@createReplay' , 'method'=>'POST' ]) !!}
+            <input type="hidden" name="comment_id" value="{{$comment->id}}">
+            <div class="form-group">
+                {!! Form::text('body',null ,['class'=>'form-control','rows'=>1 , 'placeholder','You Replay']) !!}
+            </div>
+            {!! Form::submit('Create Replay' , ['class' => 'btn btn-primary']) !!}
+            {!! Form::close() !!}
+            </div>
         @if(count($comment->replies) > 0)
-            @foreach( $comment->replies as $replay)
+            @foreach( $comment->replies()->where('is_active','1')->orderBy('id')->get() as $replay)
         <!-- Nested Comment -->
             <div class="media nested-comment">
                 <a class="pull-left" href="#">
@@ -91,14 +109,7 @@
                         <small>{{$replay->created_at->diffForHumans()}}</small>
                     </h4>
                     {{$replay->body}}
-                     {!! Form::open(['action'=>'CommentRepliesController@createReplay' , 'method'=>'POST' ]) !!}
-                    <input type="hidden" name="comment_id" value="{{$comment->id}}">
-                        <div class="form-group">
-                            <label for="body">body</label>
-                            {!! Form::text('body',null ,['class'=>'form-control','rows'=>1]) !!}
-                        </div>
-                        {!! Form::submit('Create Replay' , ['class' => 'btn btn-primary']) !!}
-                      {!! Form::close() !!}
+
                 </div>
             </div>
             <!-- End Nested Comment -->
@@ -113,3 +124,11 @@
 
 
 @stop
+
+@section('scripts')
+    <script>
+           $(".toggle-replay").click( function(){
+                $(this).next().fadeToggle('slow');
+           });
+    </script>
+    @endsection
