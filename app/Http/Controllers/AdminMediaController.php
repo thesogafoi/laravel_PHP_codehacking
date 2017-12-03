@@ -55,4 +55,29 @@ class AdminMediaController extends Controller
 		Session::flash('image_deleted',"The Image Has Been Deleted");
 		return redirect('/admin/media');
 	}
+	public function deleteMedia(Request $request){
+		foreach($request->deleteArray as $id){
+			$photo = Photo::findOrFail($id);
+			$user  = Auth::user();
+			$posts = Post::all();
+			$path = public_path().'/images/'.$user->email . '/'.$photo->file;
+			if ($user->photo_id = $id){
+				$user->photo_id = 0;
+				$user->save();
+			}
+			foreach($posts as $post){
+				if($post->photo_id = $id){
+					$post->photo_id = 0;
+					$post->save();
+				}
+			}
+			print_r($path.'<br>');
+			if (file_exists($path)){
+				unlink($path);
+			}
+			$photo->delete();
+		}
+		Session::flash('image_deleted',"The Image Has Been Deleted");
+		return redirect('/admin/media');
+	}
 }

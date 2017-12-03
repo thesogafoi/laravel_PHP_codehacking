@@ -50,3 +50,4 @@
 
     </div>
 @endsection
+@include('include.tinymce')

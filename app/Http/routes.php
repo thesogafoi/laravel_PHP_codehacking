@@ -34,6 +34,7 @@ Route::group(['middleware'=>'Admin'] , function(){
 	Route::post('/admin/media' ,'AdminMediaController@upload');
 	Route::resource('/admin/comments' ,'AdminCommentsController');
 	Route::resource('/admin/comments/replies' ,'CommentRepliesController');
+	Route::delete('admin/delete/media' , 'AdminMediaController@deleteMedia');
 });
 	
 	
