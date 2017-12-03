@@ -34,7 +34,7 @@
 
     <!-- Post Content -->
 
-    <p id="hooked">{{$post->body}}</p>
+    {!! $post->body !!}
 
     <hr>
 

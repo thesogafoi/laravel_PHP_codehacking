@@ -36,4 +36,4 @@
 @section('footer')
 
 @endsection
-
+@include('include.tinymce')
